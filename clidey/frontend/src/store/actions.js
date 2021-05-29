@@ -36,6 +36,7 @@ export let FLY_UP = (state) => {
 }
 
 export let MOVE_OTHER_BIRD_UP = (state) => {
+    console.log("moving up");
     if (state.otherBirds.height >= state.game.range.max) {
         return state
     }
