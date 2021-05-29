@@ -1,11 +1,28 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import classnames from 'classnames'
 import Bird from './components/Bird'
 import OtherBird from './components/OtherBird'
 import Piping from './components/Piping'
 import Menu from './components/Menu'
+import io from "socket.io-client";
+
+
+const useFlappyBackend = () => {
+  const [ me, setMe] = useState();
+  const [ otherBirds, setOtherBirds ] = useState();
+
+  useEffect(() => {
+    const socket = io("https://code-2-25-p4000.clidey.com");
+    socket.on("/bird/me", (data) => {
+      console.log(data);
+    })
+  }, []);
+
+  return { me, otherBirds };
+}
 
 export default function App({ state, actions, record }) {
+    let { me, otherBirds } = useFlappyBackend();
     let { bird, pipings, game, player, otherBirds } = state
     let { FLY_UP, START_PLAY, MOVE_OTHER_BIRD_UP } = actions
     let recordState = record.getRecord()
@@ -20,13 +37,8 @@ export default function App({ state, actions, record }) {
     const onFlyUp = useCallback(() => {
       if (isPlaying && !isRecording) FLY_UP();
     }, [isPlaying, isRecording]);
-
-    const onMoveOtherBirdUp = useCallback(() => {
-      MOVE_OTHER_BIRD_UP();
-    })
     
     useEffect(() => {
-      onMoveOtherBirdUp()
       document.addEventListener("keydown", (e) => {
         if(e.key === " ") onFlyUp()
        });
@@ -39,11 +51,11 @@ export default function App({ state, actions, record }) {
               <div className="score">{player.score}</div>
             }
             <Bird {...bird} isFlying={isPlaying}  />
-            {/* {
-              otherBirds.map(otherBird => ( */}
-                <OtherBird {...otherBirds} />
-              {/* )) */}
-            {/* } */}
+            {
+              otherBirds.map(otherBird => (
+                <OtherBird {...otherBird} />
+              ))
+            }
             {
               pipings.list.map(piping => <Piping key={piping.timestamp} {...piping} />)
             }
