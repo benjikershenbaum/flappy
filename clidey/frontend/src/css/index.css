@@ -21,6 +21,7 @@ body {
 	width: 288px;
 	height: 512px;
 	margin: 0 auto;
+	zoom: 2;
 }
 
 .scene {

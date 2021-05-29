@@ -1,6 +1,10 @@
-import { createStore } from 'relite'
-import * as actions from './actions'
+import { createStore as cS } from 'relite'
+import {FLY_UP, PLAYING, START_PLAY} from './actions'
 
-export default (initialState) => {
-    return createStore(actions, initialState)
+export const createStore = (initialState) => {
+    return cS({
+        FLY_UP,
+        PLAYING,
+        START_PLAY,
+    }, initialState)
 }

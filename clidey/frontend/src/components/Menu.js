@@ -8,16 +8,6 @@ export default function Menu({ score, onPlay, onReplay, onReverse }) {
 				<li>
 					<div className="btn" onMouseDown={onPlay} onTouchStart={onPlay}>play</div>
 				</li>
-				{ onReplay && 
-					<li>
-						<div className="btn" onMouseDown={onReplay} onTouchStart={onReplay}>replay</div>
-					</li>
-				}
-				{ onReplay && 
-					<li>
-						<div className="btn" onMouseDown={onReverse} onTouchStart={onReverse}>reverse</div>
-					</li>
-				}
 			</ul>
 		</div>
 	)
