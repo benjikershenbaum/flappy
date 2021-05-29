@@ -35,6 +35,28 @@ export let FLY_UP = (state) => {
     }
 }
 
+export let MOVE_OTHER_BIRD_UP = (state) => {
+    if (state.otherBirds.height >= state.game.range.max) {
+        return state
+    }
+
+    let bird = {...state.otherBirds }
+    bird.status = 'up'
+    bird.originalHeight = bird.height
+    bird.targetHeight = bird.height + bird.flyHeight
+    bird.timestamp = Date.now()
+
+    let { range } = state.game
+    if (bird.targetHeight > range.max) {
+        bird.targetHeight = range.max
+    }
+
+    return {
+        ...state,
+        bird,
+    }
+}
+
 export let PLAYING = (state) => {
     let gameStatus = state.game.status
     if (gameStatus === 'over') {

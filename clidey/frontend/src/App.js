@@ -7,7 +7,7 @@ import Menu from './components/Menu'
 
 export default function App({ state, actions, record }) {
     let { bird, pipings, game, player, otherBirds } = state
-    let { FLY_UP, START_PLAY } = actions
+    let { FLY_UP, START_PLAY, MOVE_OTHER_BIRD_UP } = actions
     let recordState = record.getRecord()
     let { isRecording, history } = recordState
     let isPlaying = game.status === 'playing'
@@ -22,6 +22,7 @@ export default function App({ state, actions, record }) {
     }, [isPlaying, isRecording]);
     
     useEffect(() => {
+      MOVE_OTHER_BIRD_UP()
       document.addEventListener("keydown", (e) => {
         if(e.key === " ") onFlyUp()
        });
