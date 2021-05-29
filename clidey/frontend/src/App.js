@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect } from 'react'
 import classnames from 'classnames'
 import Bird from './components/Bird'
+import OtherBird from './components/OtherBird'
 import Piping from './components/Piping'
 import Menu from './components/Menu'
 
 export default function App({ state, actions, record }) {
-    let { bird, pipings, game, player } = state
+    let { bird, pipings, game, player, otherBirds } = state
     let { FLY_UP, START_PLAY } = actions
     let recordState = record.getRecord()
     let { isRecording, history } = recordState
@@ -26,7 +27,6 @@ export default function App({ state, actions, record }) {
        });
     }, [onFlyUp]);
 
-
     return (
       <div className="game">
         <div className="scene" onMouseDown={onFlyUp} onTouchStart={onFlyUp}>
@@ -34,6 +34,11 @@ export default function App({ state, actions, record }) {
               <div className="score">{player.score}</div>
             }
             <Bird {...bird} isFlying={isPlaying}  />
+            {
+              otherBirds.map(otherBird => (
+                <OtherBird {...otherBird} />
+              ))
+            }
             {
               pipings.list.map(piping => <Piping key={piping.timestamp} {...piping} />)
             }
