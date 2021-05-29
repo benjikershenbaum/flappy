@@ -4,7 +4,7 @@ import Bird from './components/Bird'
 import OtherBird from './components/OtherBird'
 import Piping from './components/Piping'
 import Menu from './components/Menu'
-import io from "socket.io-client";
+import {io} from "socket.io-client";
 
 const useFlappyBackend = () => {
   const [ me, setMe] = useState();
@@ -12,6 +12,7 @@ const useFlappyBackend = () => {
 
   useEffect(() => {
     const socket = io("https://code-2-25-p4000.clidey.com");
+    console.log("CONNECTING");
     socket.on("/bird/me", (data) => {
       console.log(data);
     })
