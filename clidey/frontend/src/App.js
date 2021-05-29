@@ -11,11 +11,22 @@ const useFlappyBackend = () => {
   const [ others, setOthers ] = useState();
 
   useEffect(() => {
-    const socket = io("https://code-2-25-p4000.clidey.com");
+    const socket = io.connect("https://code-2-25-p4000.clidey.com");
     console.log("CONNECTING");
+    console.log(socket.id); // undefined
+
+    socket.on("connect", () => {
+      console.log(socket.id); // "G5p5..."
+    });
     socket.on("/bird/me", (data) => {
       console.log(data);
     })
+    socket.on("connect_error", (data) => {
+      console.log(data);
+    })
+    socket.on("disconnect", () => {
+      console.log("disconnect")
+    });
   }, []);
 
   return { me, others };
