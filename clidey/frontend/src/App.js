@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import classnames from 'classnames'
 import Bird from './components/Bird'
 import Piping from './components/Piping'
@@ -10,12 +10,23 @@ export default function App({ state, actions, record }) {
     let recordState = record.getRecord()
     let { isRecording, history } = recordState
     let isPlaying = game.status === 'playing'
-    let onFlyUp = isPlaying && !isRecording && FLY_UP
     let onReplay = history.length > 0 && record.replay
     let landClasses = classnames({
       land: true,
       sliding: isPlaying,
     })
+
+    const onFlyUp = useCallback(() => {
+      if (isPlaying && !isRecording) FLY_UP();
+    }, [isPlaying, isRecording]);
+    
+    useEffect(() => {
+      document.addEventListener("keydown", (e) => {
+        if(e.key === " ") onFlyUp()
+       });
+    }, [onFlyUp]);
+
+
     return (
       <div className="game">
         <div className="scene" onMouseDown={onFlyUp} onTouchStart={onFlyUp}>
