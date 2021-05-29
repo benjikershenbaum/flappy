@@ -14,13 +14,15 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log('a user connected');
-    socket.emit('bird/new', uuid);
+    users.push({ uuid });
+    socket.emit('bird/me', {uuid});
+    io.emit('bird/new', {uuid});
 
-    socket.on('bird/me', () => {
-
+    socket.on('bird/me', (data) => {
+      io.emit("/birds/listen", { uuid, data})
     })
     socket.on('disconnect', () => {
-      socket.emit('bird/leave', uuid)
+      io.emit('bird/leave', {uuid})
       console.log('user disconnected');
     });
 });

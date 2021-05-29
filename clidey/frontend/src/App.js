@@ -20,9 +20,13 @@ export default function App({ state, actions, record }) {
     const onFlyUp = useCallback(() => {
       if (isPlaying && !isRecording) FLY_UP();
     }, [isPlaying, isRecording]);
+
+    const onMoveOtherBirdUp = useCallback(() => {
+      MOVE_OTHER_BIRD_UP();
+    })
     
     useEffect(() => {
-      MOVE_OTHER_BIRD_UP()
+      onMoveOtherBirdUp()
       document.addEventListener("keydown", (e) => {
         if(e.key === " ") onFlyUp()
        });
@@ -35,11 +39,11 @@ export default function App({ state, actions, record }) {
               <div className="score">{player.score}</div>
             }
             <Bird {...bird} isFlying={isPlaying}  />
-            {
-              otherBirds.map(otherBird => (
-                <OtherBird {...otherBird} />
-              ))
-            }
+            {/* {
+              otherBirds.map(otherBird => ( */}
+                <OtherBird {...otherBirds} />
+              {/* )) */}
+            {/* } */}
             {
               pipings.list.map(piping => <Piping key={piping.timestamp} {...piping} />)
             }
