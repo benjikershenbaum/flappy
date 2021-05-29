@@ -6,10 +6,9 @@ import Piping from './components/Piping'
 import Menu from './components/Menu'
 import io from "socket.io-client";
 
-
 const useFlappyBackend = () => {
   const [ me, setMe] = useState();
-  const [ otherBirds, setOtherBirds ] = useState();
+  const [ others, setOthers ] = useState();
 
   useEffect(() => {
     const socket = io("https://code-2-25-p4000.clidey.com");
@@ -18,13 +17,13 @@ const useFlappyBackend = () => {
     })
   }, []);
 
-  return { me, otherBirds };
+  return { me, others };
 }
 
 export default function App({ state, actions, record }) {
-    let { me, otherBirds } = useFlappyBackend();
+    let { me, others } = useFlappyBackend();
     let { bird, pipings, game, player, otherBirds } = state
-    let { FLY_UP, START_PLAY, MOVE_OTHER_BIRD_UP } = actions
+    let { FLY_UP, START_PLAY } = actions
     let recordState = record.getRecord()
     let { isRecording, history } = recordState
     let isPlaying = game.status === 'playing'

@@ -27,8 +27,7 @@ export default {
         dropTime: 1400,
         timestamp: 0,
     },
-    otherBirds: 
-    // [
+    otherBirds: [
         {
             size: {
                 width: 34,
@@ -44,7 +43,37 @@ export default {
             dropTime: 1400,
             timestamp: 0,
         },
-    // ],
+        {
+            size: {
+                width: 34,
+                height: 24,
+            },
+            rotation: 30,
+            status: 'normal',
+            height: 20,
+            targetHeight: 188,
+            originalHeight: 188,
+            flyHeight: 60,
+            flyTime: 140,
+            dropTime: 1400,
+            timestamp: 0,
+        },
+        {
+            size: {
+                width: 34,
+                height: 24,
+            },
+            rotation: 30,
+            status: 'normal',
+            height: 180,
+            targetHeight: 188,
+            originalHeight: 188,
+            flyHeight: 60,
+            flyTime: 140,
+            dropTime: 1400,
+            timestamp: 0,
+        }
+    ],
     pipings: {
         timestamp: 0,
         interval: 1600,
